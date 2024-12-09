@@ -1,0 +1,212 @@
+for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt-get remove $pkg; done
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+echo   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" |   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo systemctl status docker
+docker run hello-world 
+id
+sudo usermod -aG docker student 
+id 
+id
+docker run hello-world 
+docker ps
+docker ps -a
+docker version
+sudo ls -la /var/lib/docker
+docker ps
+docker ps -a
+sudo ls -la /var/lib/docker
+docker run --help
+docker run httpd
+docker ps -a
+docker run -d --name web1 httpd
+docker ps -a
+docker ps 
+docker run -d --rm --name ubuntu ubuntu
+docker ps
+docker ps -a
+docker run -d --name ubuntu ubuntu
+docker ps -a
+docker remove ubuntu
+docker run -d --name ubuntu --entrypoint=tail ubuntu -f /dev/null
+docker ps 
+docker exec -it ubuntu hostname
+docker exec -it ubuntu bash
+sudo -i
+docker run -d --name web2 --env BRANCH_NAME=develop --restart=always nginx:1.19.2
+docker ps
+docker exec -it web2 env
+docker inspect web2 
+docker inspect --format '{{.State-Status}}' web2 
+docker inspect --format '{{.State.Status}}' web2 
+docker inspect --format '{{.NetworkSettings.Networks.bridge.IPAddress"}}' web2 
+docker inspect --format '{{.NetworkSettings.Networks.bridge.IPAddress}}' web2 
+docker inspect --format '{{.Config.Env}}' web2 
+docker inspect web2 | grep -i port -A 2 -B2
+docker exec -it web2 bash
+docker exec -it -u 0 web2 bash
+docker logs 
+docker logs web2
+docker logs web1
+docker logs --follow web1
+docker logs --tail web1
+docker logs --tail 5 web1
+docker logs --tail 1 web1
+docker ps
+docker stop web2
+docker ps -a
+docker start web2
+docker ps -a
+docker restart web2
+docker ps -a
+docker rename competent_shamir hello-world
+docker ps -a
+docker rename web1 web
+docker rm web1
+docker rm web
+docker rm -f web
+docker ps -a
+docker pause web2
+docker ps -a
+docker exec -it web2 bash
+docker unpause web2
+docker exec -it web2 bash
+docker ps -a
+docker container prune
+docker ps -a
+docker search ubuntu
+docker search nginx
+docker pull ubuntu:22.04
+wget https://github.com/docker/hub-tool/releases/download/v0.4.6/hub-tool-linux-amd64.tar.gz
+tar -xvf hub-tool-linux-amd64.tar.gz
+sudo install hub-tool/hub-tool /usr/bin/
+hub-tool login
+hub-tool tag ls ubuntu
+hub-tool tag ls ubuntu | awk '{print $1}' | sort
+docker images
+docker pull ubuntu:plucky
+docker images
+docker rmi hello-world
+docker image remove nginx\
+docker image remove nginx
+docker image remove nginx:1.19.2
+docker images
+docker image prune 
+docker images
+docker ps
+docker diff 258bc770f4fd
+docker diff 121ec4346dfc
+docker diff ubuntu
+docker image prune -a
+docker image --help
+docker image prune --help
+docker images
+docker diff ubuntu
+docker exec -it ubuntu bash
+docker stop ubuntu 
+docker start ubuntu
+docker exec -it ubuntu bash
+docker ps
+docker commit 121ec4346dfc ubuntu:postfix 
+docker images
+docker run -d --name mailServer --restart always ubuntu:postfix 
+docker ps
+docker exec -it mailServer bash
+docker diff mailServer 
+docker exec -it mailServer bash
+docker diff mailServer 
+vi index.html
+docker cp index.html web2:/usr/share/nginx/html/index.html
+docker run -d --name web -p 8080:80 nginx
+docker cp index.html web:/usr/share/nginx/html/index.html
+docker top web
+docker top ubunut
+docker top ubuntu 
+docker exec -it web bash
+docker top web
+docker exec -it ubuntu bash
+vi deploy-harbor.sh
+cat deploy-harbor.sh
+sudo mkdir /etc/docker/certs.d/registry.lab.local
+sudo mkdir /etc/docker/certs.d/registry.lab.local -p
+vi /etc/docker/certs.d/registry.lab.local/ca.crt
+sudo vi /etc/docker/certs.d/registry.lab.local/ca.crt
+sudo systemctl restart docker
+docker login https://registry.lab.local
+sudo vi /etc/hosts
+docker login https://registry.lab.local
+docker imgaes
+docker image
+docker images
+docker push registry.lab.local/library/ubuntu:postfix
+docker tag 9a3c84be8b09 registry.lab.local/library/ubuntu:postfix
+docker images
+docker push registry.lab.local/library/ubuntu:postfix
+docker pull registry.lab.local/library/ubuntu@sha256:78e0a27f6d968d2a84a15df2c0f31e8b23a1d69e0dfdfecf05574ef5196b234a 
+git clone https://github.com/mariano-italiano/lx-d_Dec.git
+cd lx-d_Dec/
+mkdir day1
+cd day1/
+cd
+ls
+cp -rp deploy-harbor.sh lx-d_Dec/day1/
+cd lx-d_Dec/day1/
+cd ..
+git status
+git add .
+git commit -m "adding day1 files"
+git config --global user.email "markuj5@gmail.com"
+git commit -m "adding day1 files"
+git config --global core.hookspath 'hooks' && git config --global credential.helper store 
+git push
+docker images
+docker rmi registry.lab.local/library/ubuntu
+docker rmi registry.lab.local/library/ubuntu:postfix
+docker rmi ubuntu:postfix
+docker ps 
+docker stop mailServer 
+docker ps 
+docker rmi ubuntu:postfix
+docker rmi -f ubuntu:postfix
+docker container prune
+docker ps -a
+docker run -d --name ubuntu ubuntu:postfix
+cd ../.docker/
+ls -la
+vi config.json 
+docker pull registry.lab.local/library/ubuntu:postfix 
+docker run -d --name ubuntu ubuntu:postfix
+docker run -d --name ubuntu registry.lab.local/library/ubuntu:postfix
+docker ps
+docker logout 
+docker logout  https://registry.lab.local 
+vi config.json 
+docker login
+docker login -u markuj5@gmail.com
+docker images
+docker push marcinkujawski/ubuntu:postfix 
+docker tag 9a3c84be8b09 marcinkujawski/ubuntu:postfix
+docker push marcinkujawski/ubuntu:postfix 
+docker inspect nginx:1.19.2
+docker ps
+cd 
+cd lx-d_Dec/day
+cd lx-d_Dec/day1/
+mkdir ubuntu
+cd ubuntu/
+vi Dockerfile
+docker build -t ubuntu:custom .
+docker images
+docker run -d --name ubuntu-custom ubuntu:custom 
+docker ps
+docker exec -it ubuntu-custom bash
+docker top ubuntu-custom 
+cd ../../
+history
+history | awk '$1 > 19' | cut -c 8- > day1-history.txt
