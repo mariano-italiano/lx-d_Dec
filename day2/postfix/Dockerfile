@@ -27,4 +27,4 @@ RUN ln -sf /dev/stdout /var/log/postfix.log
 EXPOSE 25/tcp
 
 # Startup postfix
-CMD /usr/sbin/postfix start-fg
+CMD ["/usr/sbin/postfix", "start-fg"]

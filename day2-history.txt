@@ -1,0 +1,473 @@
+cd lx-d_Dec/
+mkdir day2
+cd day2
+ls -la
+mkdir ubuntu-customuser
+cd ubuntu-customuser
+vi Dockerfile
+docker build -t ubuntu:customuser .
+docker images
+docker run -d --name u20 ubuntu:customuser 
+docker ps 
+docker ps
+docker ps -a
+docker logs u20
+vi Dockerfile
+docker build -t ubuntu:customuser .
+docker rm u20
+docker run -d --name u20 ubuntu:customuser 
+docker logs u20
+docker ps 
+docker ps -a
+vi Dockerfile
+docker rm u20
+docker build -t ubuntu:customuser .
+docker run -d --name u20 ubuntu:customuser 
+docker ps
+docker logs u20
+docker ps -a
+vi Dockerfile
+docker rm u20
+docker build -t ubuntu:customuser .
+docker run -d --name u20 ubuntu:customuser 
+docker ps
+docker logs u20
+docker exec -it u20
+docker exec -it u20 bash
+cd..
+cd ..
+mkdir simple-nginx
+cd simple-nginx/
+vi Dockerfile
+vi default.conf
+vi Dockerfile
+htpasswd -c mariola
+sudo apt instlal apache2-utils
+sudo apt install apache2-utils
+htpasswd -c mariola
+htpasswd -c .htpasswd mariola
+cat .htpasswd 
+vi index.html
+docker build -t nginx:secure .
+docker run -d --name secure-web -p 8081:80 nginx:secure 
+docker ps 
+cd .
+cd ..
+mkdir python-api
+cd python-api
+vi Dockerfile
+vi requirements.txt
+vi app.py
+vi Dockerfile
+docker build -t pythonapi:1.0 .
+docker run -d --name python-api -p 8082:8080 pythonapi:1.0
+docker ps
+cd ..
+mkdir postfix
+cd postfix/
+vi Dockerfile
+vi main.cf
+docker build -t postfix:1.0 .
+vi Dockerfile
+docker run -d --name mailService postfix:1.0
+docker ps
+docker logs mailService 
+docker exec -it mailService bash
+cd ..
+mkdir nginx-custom
+vi ../../index.html 
+cp ../../index.html ../
+cd ..
+git status
+git add .
+git commit -m "add day2 files"
+git push
+cd day2/
+mkdir nginx-custom/
+cd nginx-custom/
+vi Dockerfile
+docker build -t nginx-custom:1.0 .
+docker run -d --name web1 -p 8083:80 nginx-custom:1.0
+docker ps
+docker build -t nginx-custom:develop --build-arg BRANCH_NAME="develop" .
+docker run -d --name web2 -p 8084:80 nginx-custom:develop
+docker run -d --name web3 -p 8084:80 nginx-custom:develop
+docker ps 
+docker inspect web3
+docker ps
+docker image save --output mycustomnginx.tar nginx-custom:develop
+ls -la
+ls -lah
+scp mycustomnginx.tar 192.168.1.120:/home/student/
+docker run --cap-drop all -d --name web4 -p 8084:80 nginx-custom:develop
+docker run --cap-drop all -d --name web4 -p 8085:80 nginx-custom:develop
+docker run --cap-drop all -d --name web5 -p 8085:80 nginx-custom:develop
+docker ps
+docker ps -a
+docker logs web5
+docker rm web4 web5
+docker run --cap-drop all --cap-add CHOWN -d --name web5 -p 8085:80 nginx-custom:develop
+docker ps
+docker logs web5
+docker ps
+vi Dockerfile 
+wget -O hadolint https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-x86_64
+sudo mv hadolint /usr/local/bin/hadolint
+sudo chmod +x /usr/local/bin/hadolint
+hadolint Dockerfile 
+vi Dockerfile 
+hadolint Dockerfile 
+vi Dockerfile 
+hadolint Dockerfile 
+vi gadolin-config.yaml
+mv gadolin-config.yaml hadolint-config.yaml
+hadolint --config hadolint-config.yaml Dockerfile 
+vi gadolin-config.yaml
+vi hadolin-config.yaml
+vi hadolint-config.yaml
+vi hadolin-config.yaml
+hadolint --config hadolint-config.yaml Dockerfile 
+vi hadolin-config.yaml
+vi hadolint-config.yaml
+hadolint --config hadolint-config.yaml Dockerfile 
+cd ../
+cd postfix/
+hadolint Dockerfile 
+vi Dockerfile 
+hadolint Dockerfile 
+vi Dockerfile 
+cd ..
+mkdir centos7
+cd centos7/
+vi Dockerfile
+docker build -t centos7:test .
+vi Dockerfile
+docker build -t centos7:test .
+vi Dockerfile 
+docker build -t centos7:test .
+docker run -d --name c7 
+docker run -d --name c7 centos7:test 
+docker ps
+docker ps -a
+docker logs c7
+vi Dockerfile 
+docker build -t centos7:test .
+tail -f /var/test
+tail -F /var/test
+docker rm c7
+docker run -d --name c7 centos7:test 
+docker ps
+docker ps -a
+docker logs c7
+vi Dockerfile 
+docker rm c7
+docker build -t centos7:test .
+docker run -d --name c7 centos7:test 
+docker ps
+docker exec -it c7 bash
+cd
+cd lx-d_Dec/day
+cd lx-d_Dec/day2
+docker network ls
+ip a
+docker inspect web5 | grep -i ipaddres -A 10 -B 10
+docker inspect web4 | grep -i ipaddres -A 10 -B 10
+docker inspect web3 | grep -i ipaddres -A 10 -B 10
+docker ps 
+docker ps  | wc -l
+ip a
+docker network list
+docker network create custombridge
+docker network list
+docker run -d --name netshoot1 --network custombridge nicolaka/netshoot
+docker ps 
+docker ps -a
+docker rm netshoot1 
+docker run -dit --name netshoot1 --network custombridge nicolaka/netshoot bash
+docker ps -a
+docker run -dit --name netshoot2 --network custombridge nicolaka/netshoot bash
+docker ps 
+docker inspect netshoot1
+docker inspect netshoot2
+docker network ls
+ip a | grep 81c73b85c9cc
+ip a | grep 81c73b85c9cc -A 5
+ip a | grep 81c73b85c9cc -A 9
+docker ps
+docker exec -it web3 bash
+docker inspect web4 
+docker inspect web4
+docker inspect web3
+docker inspect web5
+docker inspect web3
+docker exec -it web3 bash
+docker exec -it netshoot1 bash
+docker exec -it netshoot2 bash
+docker ps
+ss -atnlup
+docker run -d --name host-httpd httpd 
+docker rm -f host-httpd 
+docker run -d --name host-httpd --network host httpd 
+docker ps
+ss -atnlup
+docker run -d --name nginx-web -p 80:80 nginx
+sudo iptables -L -v -n
+docker ps
+docker exec -it netshoot2 bash
+docker inspect web5
+docker exec -it netshoot2 bash
+docker network ls
+ip a | grep 81c73b85c9cc
+sudo iptables -I DOCKER-USER -i docker0 -o br-81c73b85c9cc -j ACCEPT 
+docker exec -it netshoot2 bash
+sudo iptables -I DOCKER-USER -i br-81c73b85c9cc -o docker0 -j ACCEPT 
+docker exec -it netshoot2 bash
+docker run -d --name nginx-web -p 80:80 nginx
+docker rm -f nginx-web 
+docker run -d --name nginx-web -p 80:80 nginx
+docker rm -f nginx-web 
+docker network create --help
+ip a
+docker network create --driver macvlan --subnet 192.168.1.0/24 --gateway 192.168.1.1 --ip-range 192.168.1.105/32 -o parent=ens33 macvlan100 
+docker network ls
+ip a | grep b9efd672ba77
+docker run -d --name nginx-web --network macvlan1 -p 80:80 nginx
+docker run -d --name nginx-web --network macvlan100 -p 80:80 nginx
+docker rm -f nginx-web 
+docker run -d --name nginx-web --network macvlan100 -p 80:80 nginx
+docker ps
+docker inspect 
+docker inspect nginx
+docker inspect nginx-web
+docker run -d --name nginx-web2 --network macvlan100 -p 80:80 nginx
+docker run -d --name nginx-web2 --network macvlan100 --ip 192.168.1.106 -p 80:80 nginx
+docker rm nginx-web2
+docker run -d --name nginx-web2 --network macvlan100 --ip 192.168.1.106 -p 80:80 nginx
+docker inspect nginx-web2
+docker inspect nginx-web
+docker inspect nginx-web2
+docker network connect custombridge nginx-web2 
+docker rm -f host-httpd 
+docker network connect custombridge nginx-web2 
+docker network connect custombridge netshoot1
+docker network connect bridge netshoot1
+docker inspect netshoot1
+docker network disconnect custombridge netshoot1
+docker inspect netshoot1
+docker run -d --name jawne-mapowanie -p 3000:80  nginx
+docker run -d --name jawne-mapowanie -P nginx
+docker run -d --name dynamiczne-mapowanie -P nginx
+docker ps 
+docker run -d --name isolated-web --network none nginx
+docker exec -it isolated-web bash
+docker run -d --name isolated-web2 --network none nicolaka/netshoot
+docker exec -it isolated-web2 bash
+docker run -dit --name isolated-web2 --network none nicolaka/netshoot bash
+docker rm isolated-web2
+docker run -dit --name isolated-web2 --network none nicolaka/netshoot bash
+docker exec -it isolated-web2 bash
+sudo systemctl stop docker.service 
+sudo systemctl status docker
+vi /lib/systemd/system/docker.service
+docker ps 
+docker ps-a
+docker ps -a
+docker start isolated-web
+docker ps -a
+docker ps-a
+docker ps
+docker container prune
+docker ps -a
+docker run -d --link db:webdb nginx
+docker run -d --link isolated-web:webdb nginx
+docker run -d --link web2:webdb nginx
+docker ps
+vi /etc/hosts
+docker exec -it funny_hugle bash
+docker run --help
+docker images
+docker run -d --name test1 -alias nginx1 nginx
+docker run -d --name test1 --alias nginx1 nginx
+docker run --help
+docker run -d --add-host=docker.lab.local:ubuntu22 --name u22 ubuntu:customuser 
+ping ubuntu22
+docker run -d --add-host=docker.lab.local:192.168.1.222 --name u22 ubuntu:customuser 
+vi /etc/hosts
+docker rm -f u22
+docker run -d --add-host=docker.lab.local:192.168.1.222 --name web1 nginx
+docker rm -f web1
+docker run -d --add-host=docker.lab.local:192.168.1.222 --name web1 -p 8123:80 nginx
+curl http://localhost:8123
+curl http://docker.lab.local:8123
+vi /etc/hosts
+sudo vi /etc/hosts
+docker rm -f web1
+docker run -d --add-host=docker.lab.local:ubuntu22 --name web1 -p 8123:80 nginx
+docker network create --subnet 192.168.2.0/24 testbridge
+docker network ls
+ip a | grep -i 1104685c3767
+docker network rm testbridge 
+docker network ls
+docker network create --help
+docker network create --subnet 192.168.2.0/24 vlan120
+docker network ls
+ip a | grep c2defe8e5243
+docker ps
+docker ps -a
+docker rm funny_elbakyan 
+docker ps
+docker run -d --name anon-vol -v /data1 nginx
+docker exec -it anon-vol bash
+sudo ls -la /var/lib/docker/volumes
+docker volume list
+sudo touch plik1 /var/lib/docker/volumes/4fcf453ed9e808ced115efc537252122a43d898b4d076311a7ed325538f905a2/_data/
+sudo ls -la /var/lib/docker/volumes/4fcf453ed9e808ced115efc537252122a43d898b4d076311a7ed325538f905a2/_data/
+sudo ls -la /var/lib/docker/volumes/4fcf453ed9e808ced115efc537252122a43d898b4d076311a7ed325538f905a2/
+sudo touch /var/lib/docker/volumes/4fcf453ed9e808ced115efc537252122a43d898b4d076311a7ed325538f905a2/_data/plik1
+sudo ls -la /var/lib/docker/volumes/4fcf453ed9e808ced115efc537252122a43d898b4d076311a7ed325538f905a2/
+sudo ls -la /var/lib/docker/volumes/4fcf453ed9e808ced115efc537252122a43d898b4d076311a7ed325538f905a2/_data
+docker exec -it anon-vol bash
+sudo ls -la /var/lib/docker/volumes/4fcf453ed9e808ced115efc537252122a43d898b4d076311a7ed325538f905a2/_data
+docker run -d --name host-vol -v /home/student/lx-d_Dec:/repo nginx
+docker exec -it host-vol bash
+docker volume ls
+docker volume create vol1
+docker volume ls
+sudo ls -la /var/lib/docker/volumes/
+sudo ls -la /var/lib/docker/volumes/vol1
+sudo ls -la /var/lib/docker/volumes/vol1/_data
+sudo vi /var/lib/docker/volumes/vol1/_data/index.html
+docker run  -d --name named-vol -v vol1:/usr/share/nginx/html/ -p 8080:80  nginx
+docker ps
+docker rm -f named-vol
+docker run  -d --name named-vol -v vol1:/usr/share/nginx/html/ -p 8080:80  nginx
+df -h
+cat /proc/partitions 
+sudo -i
+docker volume create --help
+docker volume create --opt device=/dev/sdb1 --opt type=btrfs  data_vol
+docker volume ls
+docker inspect vol1
+docker inspect data_vol
+docker run -d --name webserver -v data_vol:/usr/share/nginx/html nginx
+docker ps
+docker rm -f webserver 
+docker run -d --name webserver -v data_vol:/usr/share/nginx/html -p 8080:80 nginx
+docker rm -f webserver 
+docker run -d --name webserver -v data_vol:/usr/share/nginx/html -p 8090:80 nginx
+docker ps
+docker exec -it webserver bash
+sudo ls -la /var/lib/docker/volumes/data_vol/_data
+docker rm -f webserver 
+docker run -d --name webserver -v data_vol:/usr/share/nginx/html -p 8090:80 nginx
+cd ..
+mkdir docker-compose
+cd docker-compose
+mkdir page-counter
+cd page-counter/
+vi app.py
+vi requirements.txt
+vi Dockerfile
+vi docker-compose.yaml
+docker compose up -d
+vi docker-compose.yaml
+docker compose up -d
+docker compose ps
+docker ps
+docker compose down
+docker ps
+docker compose up
+cd ..
+docker compose up -d
+mkdir wordpress
+cd wordpress/
+vi docker-compose.yaml
+docker compose up -d
+docker compose ps
+docker ps 
+dcoker compose down 
+docker compose down 
+docker compose up
+docker compose up -d
+docker compose down -v
+docker compose up -d
+cd ..
+mkdir filetransfer
+cd filetransfer
+vi docker-compose.yaml
+vi .env
+docker compose up -d
+docker compose down
+docker ps
+docker stop named-vol
+docker ps
+docker compose up -d
+docker compose ps
+docker compose down
+vi docker-compose.yaml 
+vi .env 
+docker compose up -d
+docker compose ps
+cd ..
+mkdir flask
+cd flask
+vi docker-compose.yaml
+docker ps
+cd ../wordpress/
+docker compose down
+cd ../flask/
+docker compose up
+vi docker-compose.yaml
+docker compose up -d
+docker compose ps
+docker compose down
+docker compose up -d
+docker compose down -v
+docker compose up -d
+docker compose down
+docker ps 
+cd ..
+docker volume create portainer_data
+docker run -d -p 8000:8000 -p 9443:9443 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:2.21.4
+docker ps 
+curl -v telnet://192.168.1.100:30778
+systemctl status ufw
+git status
+git add .
+git commit -m "addin day2 files"
+git status
+git pull
+git push
+rm day2/nginx-custom/mycustomnginx.tar
+git add .
+git commit -m "addin day2 files"
+git push
+rm day2/nginx-custom/mycustomnginx.tar
+git status
+git pull
+git status
+cd day2/nginx-custom
+ls
+cd ..
+git status
+git push
+git checkout -- day2/nginx-custom/mycustomnginx.tar
+git reset --hard
+git status
+git pull
+git push
+git rm --cached day2/nginx-custom/mycustomnginx.tar
+git commit --amend -C HEAD
+git push
+git lfs install
+cd /tmp
+git clone https://github.com/mariano-italiano/lx-d_Dec.git
+cd lx-d_Dec/
+ls -la
+ls -la /home/student/lx-d_Dec/
+cp -rp /home/student/lx-d_Dec/day2/* day2/
+cp -rp /home/student/lx-d_Dec/docker-compose/ .
+git status
+git add .
+history
+history | awk '$1 > 242' | cut -c 8- > day2-history.txt
