@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Docker Containerization</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+    header {
+      background: linear-gradient(135deg, #0db7ed, #026aa7);
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+    nav ul li {
+      margin: 0 15px;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: white;
+      font-size: 1.2rem;
+      transition: color 0.3s;
+    }
+    nav ul li a:hover {
+      color: #ffcc00;
+    }
+    .hero {
+      text-align: center;
+      padding: 50px 20px;
+      background: url('docker-banner.jpg') no-repeat center center/cover;
+      color: white;
+    }
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+    .hero p {
+      font-size: 1.2rem;
+    }
+    .content {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+    .content h3 {
+      margin-top: 0;
+      color: #026aa7;
+    }
+    footer {
+      background: #026aa7;
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuItems = document.querySelectorAll('nav ul li a');
+      menuItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetId = item.getAttribute('href').slice(1);
+          document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
+        });
+      });
+    });
+  </script>
+</head>
+<body>
+  <header>
+    <h1>Welcome to Docker Universe</h1>
+    <p>Your ultimate guide to containerization</p>
+  </header>
+  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#resources">Resources</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+  <section id="home" class="hero">
+    <h2>Empower Your DevOps with Docker</h2>
+    <p>Containerize applications for efficiency, scalability, and security.</p>
+  </section>
+  <div class="content">
+    <section id="features">
+      <h3>Features</h3>
+      <p>Docker offers a lightweight containerization platform that simplifies application deployment.</p>
+      <ul>
+        <li>Easy application scaling</li>
+        <li>Seamless collaboration</li>
+        <li>Efficient resource utilization</li>
+      </ul>
+    </section>
+    <section id="resources">
+      <h3>Resources</h3>
+      <p>Explore the best tutorials, documentation, and tools to get started with Docker.</p>
+      <a href="https://docs.docker.com/" target="_blank">Official Documentation</a>
+    </section>
+    <section id="contact">
+      <h3>Contact Us</h3>
+      <p>Have questions? <a href="mailto:support@dockeruniverse.com">Email us</a>.</p>
+    </section>
+  </div>
+  <footer>
+    <p>&copy; 2024 Docker Universe | All Rights Reserved</p>
+  </footer>
+</body>
+</html>
+
